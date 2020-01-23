@@ -8,7 +8,8 @@ import Login from "../components/auth/login";
 import Dashboard from "../components/Dashboard/Dashboard";
 import Dindex from "../views/Dashboard/index";
 import User from "../views/User/index";
-import Patient from '../views/Patient/index'
+// import Patient from '../views/Patient/index'
+import PatientList from '../views/Patient/PatientList'
 import PatientForm from '../views/Patient/Form'
 import CreateReport from "../views/Patient/CreateReport";
 
@@ -47,7 +48,7 @@ export default new Router({
                 {
                     path:'patient',
                     name:'Patient',
-                    component: Patient,
+                    component: PatientList,
                 },
                 {
                     path: '/dashboard/patient/create',
@@ -56,9 +57,10 @@ export default new Router({
 
                 },
                 {
-                    path: '/dashboard/patient/create/report/:id',
+                    path: '/dashboard/patient/create/report/:id/:tn',
                     name:'PatientReportCreate',
-                    component: CreateReport
+                    component: CreateReport,
+                    props: true
                 },
             ]
         },

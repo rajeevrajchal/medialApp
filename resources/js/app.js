@@ -7,6 +7,7 @@ import Toasted from 'vue-toasted';
 
 axios.defaults.baseURL = `/api`;
 window.axios = axios;
+window.eventBus = new Vue();
 
 axios.defaults.headers.common = {
     'X-Requested-With': 'XMLHttpRequest'

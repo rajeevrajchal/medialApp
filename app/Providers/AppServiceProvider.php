@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\Auth\authRepository;
 use App\Repositories\Auth\authService;
+use App\Repositories\Lipid\lipidRepository;
+use App\Repositories\Lipid\lipidService;
 use App\Repositories\Patient\patientRepository;
 use App\Repositories\Patient\patientService;
 use Illuminate\Support\Facades\Schema;
@@ -20,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(authRepository::class, authService::class);
         $this->app->singleton(patientRepository::class, patientService::class);
+        $this->app->singleton(lipidRepository::class, lipidService::class);
 
     }
 

@@ -11,6 +11,7 @@ class Patient extends Model
         'age',
         'address',
         'gender',
-        'tn'
+        'tn',
+        'lipid_flag'
     ];
 }

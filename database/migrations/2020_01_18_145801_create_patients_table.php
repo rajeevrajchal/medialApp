@@ -21,6 +21,8 @@ class CreatePatientsTable extends Migration
             $table->string('gender');
             $table->string('tn');
             $table->boolean('delete_flag')->default(0);
+            $table->boolean('lipid_flag')->default(0);
+            $table->boolean('serology_flag')->default(0);
             $table->boolean('isReport')->default(false);
             $table->timestamps();
         });

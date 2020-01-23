@@ -15,3 +15,4 @@ use Illuminate\Http\Request;
 
 include(__DIR__.'/auth/auth.php');
 include(__DIR__.'/patients/patient.php');
+include(__DIR__.'/lipid/lipid.php');
