@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" data-dismiss="modal" class="btn btn-primary">Save</button>
+                            <button type="submit" :data-dismiss="modal" class="btn btn-primary">Save</button>
                         </div>
                     </form>
                 </div>
@@ -74,6 +74,7 @@
             return{
                 lipid: new Lipid(),
                 isActive: false,
+                modal:''
             }
         },
         created() {
@@ -86,13 +87,12 @@
         },
         methods:{
             onSubmit(){
-                console.log('i am enter on submit')
-                this.lipid.lipid_flag = true;
-                console.log('i am inter tosubmit', this.lipid)
+                console.log('i have enter on submit')
                 axios.post('/lipid',this.lipid)
                     .then(res=>{
                         this.lipid = '';
                         this.isActive = false;
+                        eventBus.$emit('open-refresh-modal')
                         this.$toasted.success('Test Data Added Successfully',{
                             icon : 'check',
                             type : 'success',

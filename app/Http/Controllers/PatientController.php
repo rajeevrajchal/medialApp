@@ -25,6 +25,18 @@ class PatientController extends Controller
             throw $e;
         }
     }
+    public function getPatient(Patient $patient){
+        try {
+            $patient = $this->patientRepository->getPatient($patient);
+            return response()->json([
+                'status' => 1,
+                'data' => $patient
+            ]);
+        } catch (\Exception $e){
+            throw $e;
+        }
+    }
+
     public function store(Request $request)
     {
         $storePatient = new Patient();

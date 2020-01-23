@@ -60,13 +60,14 @@
                                         {{p.address}}{{p.id}}
                                     </td>
                                     <td>
-                                        <router-link  v-if="p.isReport" class="btn btn-info btn-sm" :to="{name: 'PatientReportView', params: {id: p.id}}" >Preview</router-link>
-                                        <router-link v-else class="btn btn-default btn-sm"
+<!--                                        <router-link  v-if="p.isReport" class="btn btn-info btn-sm" :to="{name: 'PatientReportView', params: {id: p.id}}" >Preview</router-link>-->
+                                        <router-link  class="btn btn-default btn-sm"
                                                      :to="{name: 'PatientReportCreate', params: {id:p.id,
                                                                                         tn:p.tn,
-                                                                                        pA:p.lipid_flag
-                                                                                        }}" >
-                                                    Create
+                                                                                        patient_id:p.id
+                                                                                        }}"
+                                        >
+                                                    Preview
                                         </router-link>
                                         <i class="material-icons btn btn-danger btn-sm">delete</i>
                                     </td>

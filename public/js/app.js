@@ -11575,7 +11575,8 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       lipid: new _model_Lipid__WEBPACK_IMPORTED_MODULE_0__["default"](),
-      isActive: false
+      isActive: false,
+      modal: ''
     };
   },
   created: function created() {
@@ -11592,12 +11593,11 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       var _this2 = this;
 
-      console.log('i am enter on submit');
-      this.lipid.lipid_flag = true;
-      console.log('i am inter tosubmit', this.lipid);
+      console.log('i have enter on submit');
       axios.post('/lipid', this.lipid).then(function (res) {
         _this2.lipid = '';
         _this2.isActive = false;
+        eventBus.$emit('open-refresh-modal');
 
         _this2.$toasted.success('Test Data Added Successfully', {
           icon: 'check',
@@ -12559,11 +12559,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "CreateReport",
   data: function data() {
     return {
-      patient: {}
+      patient: []
     };
   },
   props: {
@@ -12574,11 +12588,19 @@ __webpack_require__.r(__webpack_exports__);
     tn: {
       required: true,
       type: String
-    },
-    pA: {
-      required: true,
-      type: Boolean
     }
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('/patient', this.id).then(function (res) {
+      _this.patient = res.data.data[0];
+      console.log(_this.patient);
+    });
+    eventBus.$on('open-refresh-modal', function () {
+      location.reload();
+      _this.isActive = false;
+    });
   },
   methods: {
     openLipidModal: function openLipidModal(id) {
@@ -12816,6 +12838,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12866,6 +12889,38 @@ __webpack_require__.r(__webpack_exports__);
     prevPage: function prevPage() {
       this.pageNumber--;
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "ViewReport",
+  props: {
+    id: {
+      required: true,
+      type: Number
+    },
+    tn: {
+      required: true,
+      type: String
+    }
+  },
+  created: function created() {
+    console.log("view createdma aayo ra id:", this.id);
   }
 });
 
@@ -14566,7 +14621,16 @@ var render = function() {
                         ])
                       ]),
                       _vm._v(" "),
-                      _vm._m(0)
+                      _c("div", { staticClass: "modal-footer" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-primary",
+                            attrs: { type: "submit", "data-dismiss": _vm.modal }
+                          },
+                          [_vm._v("Save")]
+                        )
+                      ])
                     ]
                   )
                 ])
@@ -14577,23 +14641,7 @@ var render = function() {
       )
     : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        {
-          staticClass: "btn btn-primary",
-          attrs: { type: "submit", "data-dismiss": "modal" }
-        },
-        [_vm._v("Save")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -16283,41 +16331,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container-fluid" }, [
     _c("div", { staticClass: "row" }, [
-      _c("div", { staticClass: "col-md-12" }, [
-        _c("div", { staticClass: "card" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "card-body" }, [
-            _c("div", { staticClass: "card-list" }, [
-              _c("div"),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-default btn-sm",
-                      attrs: {
-                        type: "button",
-                        "data-toggle": "modal",
-                        "data-target": "#exampleModal1"
-                      },
-                      on: {
-                        click: function($event) {
-                          return _vm.openLipidModal(_vm.id)
-                        }
-                      }
-                    },
-                    [
-                      _c("strong", [
-                        _vm._v("View Lipid Data " + _vm._s(_vm.pA))
-                      ])
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
+      _c("div", { staticClass: "col-md-8" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "card-list" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              !_vm.patient.lipid_flag
+                ? _c(
                     "button",
                     {
                       staticClass: "btn btn-default btn-sm",
@@ -16334,34 +16355,111 @@ var render = function() {
                     },
                     [_c("strong", [_vm._v("Lipid Test")])]
                   )
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-list" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c(
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.patient.serology_flag
+                ? _c(
                     "button",
                     {
                       staticClass: "btn btn-default btn-sm",
                       attrs: {
                         type: "button",
                         "data-toggle": "modal",
-                        "data-target": "#exampleModal2"
+                        "data-target": "#exampleModal1"
                       },
                       on: {
                         click: function($event) {
-                          return _vm.openSerologyModal()
+                          return _vm.openSerologyModal(_vm.id)
                         }
                       }
                     },
                     [_c("strong", [_vm._v("Serology Test")])]
                   )
-                ])
-              ])
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.patient.lipid_flag
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-sm",
+                      attrs: {
+                        type: "button",
+                        "data-toggle": "modal",
+                        "data-target": "#exampleModal1"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.openSerologyModal(_vm.id)
+                        }
+                      }
+                    },
+                    [_c("strong", [_vm._v("Lipid Test")])]
+                  )
+                : _vm._e()
             ])
           ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-4" }, [
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "card-list" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "row" }, [
+              _vm.patient.lipid_flag
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-sm",
+                      attrs: { disabled: "" }
+                    },
+                    [_c("strong", [_vm._v("Lipid Test")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.patient.serology_flag
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-default btn-sm",
+                      attrs: { disabled: "" }
+                    },
+                    [_c("strong", [_vm._v("Serology Test")])]
+                  )
+                : _vm._e()
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "card-body" }, [
+        _c("div", { staticClass: "card-list" }, [
+          _c(
+            "button",
+            [
+              _c(
+                "router-link",
+                {
+                  staticClass: "btn btn-default btn-sm",
+                  attrs: {
+                    to: {
+                      name: "PatientReportView",
+                      params: { id: this.id, tn: this.tn }
+                    }
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n                        Preview\n                    "
+                  )
+                ]
+              )
+            ],
+            1
+          )
         ])
       ])
     ])
@@ -16372,19 +16470,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-header card-header-primary" }, [
-      _c("div", { staticClass: "row" }, [
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("h4", { staticClass: "card-title" }, [_vm._v("Patient Report")])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-3" }, [
-          _c("h4", { staticClass: "card-title" }, [_vm._v("Perform Test")])
-        ])
-      ])
-    ])
+    return _c("div", [_c("h3", [_vm._v("Test To Do")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("h3", [_vm._v("Test Performed")])])
   }
 ]
 render._withStripped = true
@@ -16741,83 +16833,69 @@ var render = function() {
                       return _c("tr", { staticStyle: { width: "15px" } }, [
                         _c("td", [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                        " +
                               _vm._s(p.tn) +
-                              "\n                                "
+                              "\n                                    "
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                        " +
                               _vm._s(p.name) +
-                              "\n                                "
+                              "\n                                    "
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                        " +
                               _vm._s(p.gender) +
-                              "\n                                "
+                              "\n                                    "
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                        " +
                               _vm._s(p.age) +
-                              "\n                                "
+                              "\n                                    "
                           )
                         ]),
                         _vm._v(" "),
                         _c("td", [
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                        " +
                               _vm._s(p.address) +
                               _vm._s(p.id) +
-                              "\n                                "
+                              "\n                                    "
                           )
                         ]),
                         _vm._v(" "),
                         _c(
                           "td",
                           [
-                            p.isReport
-                              ? _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-info btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "PatientReportView",
-                                        params: { id: p.id }
-                                      }
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "btn btn-default btn-sm",
+                                attrs: {
+                                  to: {
+                                    name: "PatientReportCreate",
+                                    params: {
+                                      id: p.id,
+                                      tn: p.tn,
+                                      patient_id: p.id
                                     }
-                                  },
-                                  [_vm._v("Preview")]
+                                  }
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                                    Preview\n                                        "
                                 )
-                              : _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "btn btn-default btn-sm",
-                                    attrs: {
-                                      to: {
-                                        name: "PatientReportCreate",
-                                        params: {
-                                          id: p.id,
-                                          tn: p.tn,
-                                          pA: p.lipid_flag
-                                        }
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n                                                Create\n                                    "
-                                    )
-                                  ]
-                                ),
+                              ]
+                            ),
                             _vm._v(" "),
                             _c(
                               "i",
@@ -16853,7 +16931,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                        <<\n                                    "
+                                "\n                                            <<\n                                        "
                               )
                             ]
                           ),
@@ -16869,7 +16947,7 @@ var render = function() {
                             },
                             [
                               _vm._v(
-                                "\n                                        >>\n                                    "
+                                "\n                                            >>\n                                        "
                               )
                             ]
                           )
@@ -16904,42 +16982,66 @@ var staticRenderFns = [
     return _c("thead", [
       _c("th", [
         _vm._v(
-          "\n                                Ticket No\n                            "
+          "\n                                    Ticket No\n                                "
         )
       ]),
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                                Name\n                            "
+          "\n                                    Name\n                                "
         )
       ]),
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                                Gender\n                            "
+          "\n                                    Gender\n                                "
         )
       ]),
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                                Age\n                            "
+          "\n                                    Age\n                                "
         )
       ]),
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                                Address\n                            "
+          "\n                                    Address\n                                "
         )
       ]),
       _vm._v(" "),
       _c("th", [
         _vm._v(
-          "\n                                Action\n                            "
+          "\n                                    Action\n                                "
         )
       ])
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true&":
+/*!****************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true& ***!
+  \****************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("p", [_vm._v("I am report")])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -32874,6 +32976,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_Patient_PatientList__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../views/Patient/PatientList */ "./resources/js/views/Patient/PatientList.vue");
 /* harmony import */ var _views_Patient_Form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../views/Patient/Form */ "./resources/js/views/Patient/Form.vue");
 /* harmony import */ var _views_Patient_CreateReport__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../views/Patient/CreateReport */ "./resources/js/views/Patient/CreateReport.vue");
+/* harmony import */ var _views_Patient_ViewReport__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../views/Patient/ViewReport */ "./resources/js/views/Patient/ViewReport.vue");
 
 
 window.eventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
@@ -32882,6 +32985,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
  // import Patient from '../views/Patient/index'
+
 
 
 
@@ -32923,6 +33027,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
       path: '/dashboard/patient/create/report/:id/:tn',
       name: 'PatientReportCreate',
       component: _views_Patient_CreateReport__WEBPACK_IMPORTED_MODULE_8__["default"],
+      props: true
+    }, {
+      path: '/dashboard/patient/:id/view/report/:tn',
+      name: 'PatientReportView',
+      component: _views_Patient_ViewReport__WEBPACK_IMPORTED_MODULE_9__["default"],
       props: true
     }]
   }]
@@ -33382,6 +33491,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientList_vue_vue_type_template_id_698f574a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_PatientList_vue_vue_type_template_id_698f574a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/views/Patient/ViewReport.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/views/Patient/ViewReport.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewReport.vue?vue&type=template&id=719e70fc&scoped=true& */ "./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true&");
+/* harmony import */ var _ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewReport.vue?vue&type=script&lang=js& */ "./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "719e70fc",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/views/Patient/ViewReport.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true& ***!
+  \**********************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewReport.vue?vue&type=template&id=719e70fc&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

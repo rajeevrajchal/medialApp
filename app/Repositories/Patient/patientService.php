@@ -15,10 +15,17 @@ class patientService implements patientRepository {
             ->sortBy('isReport',0);
         return $patient;
     }
+    public function getPatient(Patient $patient)
+    {
+        $patient = Patient::find($patient);
+        return $patient;
+    }
+
     public function generatePatientReport(Patient $patient)
     {
 
     }
+
     public function storeOrUpdatePatient(Request $request, Patient $patient)
     {
         try {

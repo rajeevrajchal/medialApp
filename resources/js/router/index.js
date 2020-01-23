@@ -12,6 +12,7 @@ import User from "../views/User/index";
 import PatientList from '../views/Patient/PatientList'
 import PatientForm from '../views/Patient/Form'
 import CreateReport from "../views/Patient/CreateReport";
+import ViewReport from "../views/Patient/ViewReport";
 
 
 export default new Router({
@@ -60,6 +61,12 @@ export default new Router({
                     path: '/dashboard/patient/create/report/:id/:tn',
                     name:'PatientReportCreate',
                     component: CreateReport,
+                    props: true
+                },
+                {
+                    path: '/dashboard/patient/:id/view/report/:tn',
+                    name:'PatientReportView',
+                    component:ViewReport ,
                     props: true
                 },
             ]
