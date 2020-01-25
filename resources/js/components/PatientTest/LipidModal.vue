@@ -1,5 +1,6 @@
 <template>
-    <div class="modal fade" v-if="isActive" id="exampleModal1" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" v-if="isActive" id="exampleModal1" data-backdrop="static" tabindex="-1" role="dialog"
+         aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -13,15 +14,17 @@
                         <div class="form-row">
                             <div class="form-group col-md-4">
                                 <label>Total Cholesterol</label>
-                                <input type="number" v-model="lipid.totalcholesterol" class="form-control"  placeholder="Total Cholesterol">
+                                <input type="number" v-model="lipid.totalcholesterol" class="form-control"
+                                       placeholder="Total Cholesterol">
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Triglyceride</label>
-                                <input type="number" v-model="lipid.triglyceride" class="form-control"  placeholder="Triglyceride">
+                                <input type="number" v-model="lipid.triglyceride" class="form-control"
+                                       placeholder="Triglyceride">
                             </div>
                             <div class="form-group col-md-4">
                                 <label>Uric</label>
-                                <input type="number" v-model="lipid.uric" class="form-control"  placeholder="Uric">
+                                <input type="number" v-model="lipid.uric" class="form-control" placeholder="Uric">
                             </div>
                         </div>
                         <div class="form-row">
@@ -31,11 +34,11 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">LDL</label>
-                                <input type="number" v-model="lipid.ldl" class="form-control"  placeholder="LDL">
+                                <input type="number" v-model="lipid.ldl" class="form-control" placeholder="LDL">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputPassword4">VLDL</label>
-                                <input type="number" v-model="lipid.vldl " class="form-control"  placeholder="VLDL">
+                                <input type="number" v-model="lipid.vldl " class="form-control" placeholder="VLDL">
                             </div>
                         </div>
                         <div class="form-row">
@@ -45,11 +48,13 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">VitaminD</label>
-                                <input type="number" class="form-control" v-model="lipid.vitaminD" placeholder="VitaminD">
+                                <input type="number" class="form-control" v-model="lipid.vitaminD"
+                                       placeholder="VitaminD">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputPassword4">VitaminB12</label>
-                                <input type="number" class="form-control" v-model="lipid.vitaminB12"  placeholder="VitaminB12">
+                                <input type="number" class="form-control" v-model="lipid.vitaminB12"
+                                       placeholder="VitaminB12">
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -70,41 +75,44 @@
 
     export default {
         name: "Lipid",
-        data(){
-            return{
+        data() {
+            return {
                 lipid: new Lipid(),
                 isActive: false,
-                modal:''
+                modal: ''
             }
         },
         created() {
-            eventBus.$on('open-add-lipid-modal',(id) =>{
+            eventBus.$on('open-add-lipid-modal', (id) => {
                 this.lipid = new Lipid();
                 this.lipid.patient_id = id;
-                console.log('we get the patient_id:', this.lipid.patient_id );
+                console.log('we get the patient_id:', this.lipid.patient_id);
                 this.isActive = true;
             })
         },
-        methods:{
-            onSubmit(){
-                console.log('i have enter on submit')
-                axios.post('/lipid',this.lipid)
-                    .then(res=>{
+        methods: {
+            onSubmit() {
+                console.log('i have enter on submit');
+                axios.post('/lipid', this.lipid)
+                    .then(res => {
                         this.lipid = '';
                         this.isActive = false;
-                        eventBus.$emit('open-refresh-modal')
-                        this.$toasted.success('Test Data Added Successfully',{
-                            icon : 'check',
-                            type : 'success',
+                        this.$toasted.success('Test Data Added Successfully', {
+                            icon: 'check',
+                            type: 'success',
                         });
-                    }).catch( err =>{
-                    this.$toasted.show('Error In Storing Test Data ',{
-                        icon : 'cross',
-                        type : 'error',
+                        setTimeout(() => {
+                            eventBus.$emit('open-refresh-modal');
+                        }, 1500);
+                    }).catch(err => {
+                    this.$toasted.show('Error In Storing Test Data ', {
+                        icon: 'cross',
+                        type: 'error',
                     });
+
                 });
             },
-            closeModal(){
+            closeModal() {
                 this.isActive = false;
             }
         }

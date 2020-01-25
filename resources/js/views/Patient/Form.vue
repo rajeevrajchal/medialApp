@@ -33,17 +33,17 @@
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Sex</label>
                                         <select class="form-control" v-model="patient.gender">
-                                            <option  value="" disabled selected>Choose your option</option>
-                                            <option  value="Male">Male</option>
-                                            <option  value="Female">Female</option>
-                                            <option  value="Others">Others</option>
+                                            <option value="" disabled selected>Choose your option</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                            <option value="Others">Others</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">TicketID</label>
-                                        <input type="text"  v-model="patient.tn" class="form-control"  disabled>
+                                        <input type="text" v-model="patient.tn" class="form-control" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -59,6 +59,7 @@
 
 <script>
     import Patient from "../../model/Patient";
+
     export default {
         name: "PatientForm",
         data() {
@@ -68,20 +69,18 @@
         },
         created() {
             this.patient.tn = Math.random().toString(36).substring(8);
-            console.log("random", this.patient.tn);
         },
-        methods:{
-            onSubmit(){
-                console.log("hello i am submit");
+        methods: {
+            onSubmit() {
                 axios.post('/patient', this.patient).then(res => {
                     console.log(res.data)
-                    if(res.data.status === 1){
+                    if (res.data.status === 1) {
                         this.patient = '';
-                        this.$toasted.success('Patient Added Successfully',{
-                            icon : 'check',
-                            type : 'success',
+                        this.$toasted.success('Patient Added Successfully', {
+                            icon: 'check',
+                            type: 'success',
                         });
-                        this.$router.push({name:'Patient'});
+                        this.$router.push({name: 'Patient'});
                     }
                 }).catch(error => {
                     console.log(error.data.errors)

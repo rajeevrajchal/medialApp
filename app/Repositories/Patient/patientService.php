@@ -15,8 +15,9 @@ class patientService implements patientRepository {
             ->sortBy('isReport',0);
         return $patient;
     }
-    public function getPatient(Patient $patient)
+    public function getSinglePatient( $patient)
     {
+
         $patient = Patient::find($patient);
         return $patient;
     }

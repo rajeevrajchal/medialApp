@@ -19,5 +19,6 @@ class lipidService implements lipidRepository{
         $lipid = Lipid::all()
             ->where('patient_id','$patient')
             ->get();
+        return $lipid;
     }
 }

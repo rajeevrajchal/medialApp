@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 include(__DIR__.'/auth/auth.php');
 include(__DIR__.'/patients/patient.php');
 include(__DIR__.'/lipid/lipid.php');
+include(__DIR__.'/serology/serology.php');
+include(__DIR__.'/urine/urine.php');
+include(__DIR__.'/biochemistry/biochemistry.php');
+include(__DIR__.'/hematology/hematology.php');

@@ -1,12 +1,5 @@
 <template>
     <div>
-<!--        <ul>-->
-<!--            <li v-for="p in paginatedData">-->
-<!--                {{p.first}}-->
-<!--                {{p.last}}-->
-<!--                {{p.suffix}}-->
-<!--            </li>-->
-<!--        </ul>-->
         <button
             :disabled="pageNumber === 0"
             @click="prevPage">
@@ -23,42 +16,42 @@
 <script>
     export default {
         name: "Pagination",
-        data(){
+        data() {
             return {
                 pageNumber: 0  // default to page 0
             }
         },
-        props:{
-            listData:{
-                type:Array,
-                required:true
+        props: {
+            listData: {
+                type: Array,
+                required: true
             },
-            size:{
-                type:Number,
-                required:false,
+            size: {
+                type: Number,
+                required: false,
                 default: 2
             }
         },
         created() {
-            console.log("pagination ko",this.listData)
+            console.log("pagination ko", this.listData)
         },
-        computed:{
-            pageCount(){
+        computed: {
+            pageCount() {
                 let l = this.listData.length,
                     s = this.size;
-                return Math.ceil(l/s);
+                return Math.ceil(l / s);
             },
-            paginatedData(){
+            paginatedData() {
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
                 return this.listData.slice(start, end);
             }
         },
-        methods:{
-            nextPage(){
+        methods: {
+            nextPage() {
                 this.pageNumber++;
             },
-            prevPage(){
+            prevPage() {
                 this.pageNumber--;
             }
         }
@@ -66,35 +59,40 @@
 </script>
 
 <style scoped>
-    ul{
+    ul {
         padding: 4px 4px;
         border: 1px solid black;
 
     }
-    li{
-        list-style-type:none;
-        padding:4px 4px;
-    }
-    li:hover{
-        background-color:#eee;
-    }
-    li:nth-child(2n){
-        background-color:#ddd;
-    }
-    li:nth-child(2n):hover{
-        background-color:#ccc;
+
+    li {
+        list-style-type: none;
+        padding: 4px 4px;
     }
 
-    button{
-        width:100px;
-        height:40px;
-        background-color:#eef;
+    li:hover {
+        background-color: #eee;
     }
 
-    button:hover{
-        cursor:pointer;
+    li:nth-child(2n) {
+        background-color: #ddd;
     }
-    button:hover:disabled{
-        cursor:not-allowed;
+
+    li:nth-child(2n):hover {
+        background-color: #ccc;
+    }
+
+    button {
+        width: 100px;
+        height: 40px;
+        background-color: #eef;
+    }
+
+    button:hover {
+        cursor: pointer;
+    }
+
+    button:hover:disabled {
+        cursor: not-allowed;
     }
 </style>

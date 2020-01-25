@@ -4,7 +4,7 @@
             <nav class="float-left">
                 <ul>
                     <li>
-                        <router-link :to="{name: 'Patient'}" class='nav-link'  >
+                        <router-link :to="{name: 'Patient'}" class='nav-link'>
                             <p>Patient Report</p>
                         </router-link>
                     </li>

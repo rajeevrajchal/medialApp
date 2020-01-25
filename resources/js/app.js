@@ -21,13 +21,13 @@ router.beforeEach((to, from, next) => {
     // check if the route requires authentication and user is not logged in
     if (to.matched.some(route => route.meta.requiresAuth) && !store.state.isLoggedIn) {
         // redirect to login page
-        next({ name: 'Login' });
+        next({name: 'Login'});
         return
     }
 
     // if logged in redirect to dashboard
     if (to.path === '/login' && store.state.isLoggedIn) {
-        next({ name: 'Dashboard' });
+        next({name: 'Dashboard'});
         return
     }
 
@@ -38,5 +38,5 @@ const app = new Vue({
     el: '#app',
     router,
     store,
-    render:h => h(App)
+    render: h => h(App)
 });

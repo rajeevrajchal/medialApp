@@ -7,7 +7,9 @@
                     <strong>{{currentPage[0].toUpperCase()}}</strong>
                 </li>
             </div>
-            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation"
+                    data-target="#navigation-example">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="navbar-toggler-icon icon-bar"></span>
                 <span class="navbar-toggler-icon icon-bar"></span>
@@ -16,7 +18,7 @@
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <router-link :to="{name: 'DIndex'}" class='nav-link'  >
+                        <router-link :to="{name: 'DIndex'}" class='nav-link'>
                             <i class="material-icons">dashboard</i>
                             <p class="d-lg-none d-md-block">
                                 Stats
@@ -24,8 +26,10 @@
                         </router-link>
                     </li>
                     <li class="nav-item ">
-                        <form  @submit.prevent="logout">
-                            <button  class="btn btn-danger  btn-sm waves-effect waves-light submit" type="submit"><i class="material-icons">person</i> Logout</button>
+                        <form @submit.prevent="logout">
+                            <button class="btn btn-danger  btn-sm waves-effect waves-light submit" type="submit"><i
+                                class="material-icons">person</i> Logout
+                            </button>
                         </form>
                     </li>
                 </ul>
@@ -37,15 +41,16 @@
 
 <script>
     import store from "../../store/store";
+
     export default {
         name: "navbar",
-        computed:{
-            currentPage(){
+        computed: {
+            currentPage() {
                 return this.$route.path.split('/').slice(-1);
             }
         },
         methods: {
-            logout(){
+            logout() {
                 console.log('i am logout');
                 axios.get('/logout').then(res => {
                     store.commit('LogoutUser');

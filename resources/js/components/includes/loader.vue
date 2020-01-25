@@ -11,6 +11,7 @@
 
 <script>
     import Vuex from 'Vuex'
+
     export default {
         name: "loader",
         computed: {
@@ -28,7 +29,7 @@
         position: fixed;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.8);
+        background: rgba(0, 0, 0, 0.8);
         left: 0;
         top: 0;
     }

@@ -6,19 +6,21 @@
                     <div class="card-header card-header-primary">
                         <div class="row">
                             <div class="col-md-10">
-                               <h4 class="card-title">List of Patient Report</h4>
+                                <h4 class="card-title">List of Patient Report</h4>
                             </div>
                             <div class="col-md-2">
-                                <router-link class=" btn btn-default btn-sm" :to="{name:'PatientForm'}">Add Patient</router-link>
+                                <router-link class=" btn btn-default btn-sm" :to="{name:'PatientForm'}">Add Patient
+                                </router-link>
                             </div>
                         </div>
 
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                                <div class="search-wrapper input-group no-border">
-                                    <input type="text" v-model="search" class="form-control" placeholder="For Better Search... Prefer Ticket No">
-                                </div>
+                            <div class="search-wrapper input-group no-border">
+                                <input type="text" v-model="search" class="form-control"
+                                       placeholder="For Better Search... Prefer Ticket No">
+                            </div>
                             <table id="example" class="table table-striped table-bordered" style="width:100%">
 
                                 <thead>
@@ -60,27 +62,27 @@
                                         {{p.address}}{{p.id}}
                                     </td>
                                     <td>
-<!--                                        <router-link  v-if="p.isReport" class="btn btn-info btn-sm" :to="{name: 'PatientReportView', params: {id: p.id}}" >Preview</router-link>-->
-                                        <router-link  class="btn btn-default btn-sm"
+                                        <!--                                        <router-link  v-if="p.isReport" class="btn btn-info btn-sm" :to="{name: 'PatientReportView', params: {id: p.id}}" >Preview</router-link>-->
+                                        <router-link class="btn btn-default btn-sm"
                                                      :to="{name: 'PatientReportCreate', params: {id:p.id,
                                                                                         tn:p.tn,
                                                                                         patient_id:p.id
                                                                                         }}"
                                         >
-                                                    Preview
+                                            Preview
                                         </router-link>
                                         <i class="material-icons btn btn-danger btn-sm">delete</i>
                                     </td>
                                 </tr>
                                 </tbody>
-                                <tfoot >
-                                <tr>
+                                <tfoot>
+                                <tr v-if="isPagination">
                                     <div class="custom-pagination pagination pagination-sm">
                                         <button
                                             :disabled="pageNumber === 0"
                                             @click="prevPage"
                                             class="btn-sm"
-                                            >
+                                        >
                                             <<
                                         </button>
                                         <button
@@ -103,54 +105,57 @@
 
 <script>
     import Patient from "../../model/Patient";
-    import Pagination from '../../components/includes/Pagination';
+
     export default {
         name: "patientIndex",
-        data(){
-            return{
+        data() {
+            return {
                 patient: new Patient,
                 pageNumber: 0,
-                size:10,
+                size: 10,
                 search: '',
+                isPagination:false,
             }
         },
-        computed:{
-            pageCount(){
+        computed: {
+            pageCount() {
                 let l = this.patient.length,
                     s = this.size;
-                return Math.ceil(l/s);
+                return Math.ceil(l / s);
             },
-            paginatedData(){
+            paginatedData() {
+                this.isPagination = true;
+
                 //search and pagination
                 const start = this.pageNumber * this.size,
                     end = start + this.size;
-                if(this.search){
-                    return Object.values(this.patient).filter((item)=>{
+                if (this.search) {
+                    return Object.values(this.patient).filter((item) => {
                         return this.search.toLowerCase().split(' ').every(
-                            v => item.name.toLowerCase().includes(v)||
-                                item.tn.toLowerCase().includes(v)||
+                            v => item.name.toLowerCase().includes(v) ||
+                                item.tn.toLowerCase().includes(v) ||
                                 item.address.toLowerCase().includes(v)
                         )
                     })
-                }else{
+                } else {
                     return Object.values(this.patient).slice(start, end);
                 }
 
             },
 
         },
-        created(){
+        created() {
             axios.get('/patient').then(res => {
                 this.patient = res.data.data;
             }).catch(error => {
 
             });
         },
-        methods:{
-            nextPage(){
+        methods: {
+            nextPage() {
                 this.pageNumber++;
             },
-            prevPage(){
+            prevPage() {
                 this.pageNumber--;
             },
         }
@@ -159,20 +164,22 @@
 </script>
 
 <style scoped>
-    button{
-        width:70px;
-        height:35px;
-        background-color:#eef;
+    button {
+        width: 70px;
+        height: 35px;
+        background-color: #eef;
         margin-left: 2px;
     }
 
-    button:hover{
-        cursor:pointer;
+    button:hover {
+        cursor: pointer;
     }
-    button:hover:disabled{
-        cursor:not-allowed;
+
+    button:hover:disabled {
+        cursor: not-allowed;
     }
-    .custom-pagination{
+
+    .custom-pagination {
         margin-top: 10px;
     }
 </style>

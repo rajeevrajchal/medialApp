@@ -5,9 +5,13 @@
             <navBar/>
             <div class="content">
                 <router-view/>
-    <!--             modal   -->
+                <!--             modal   -->
                 <LipidModal/>
                 <SerologyModal/>
+                <Urine/>
+                <Hematology/>
+                <Biochemistry/>
+
             </div>
             <Footer/>
         </div>
@@ -20,15 +24,23 @@
     import Footer from "../includes/footer";
     import LipidModal from "../PatientTest/LipidModal";
     import SerologyModal from "../PatientTest/SerologyModal";
+    import Urine from "../PatientTest/Urine";
+    import Hematology from "../PatientTest/Hematology";
+    import Biochemistry from "../PatientTest/BioChemistry";
+
     export default {
         name: "Dashboard",
-        components:{
+        components: {
             navBar,
             sideBar,
             Footer,
+
             //modal
             LipidModal,
-            SerologyModal
+            SerologyModal,
+            Urine,
+            Hematology,
+            Biochemistry,
         }
     }
 </script>

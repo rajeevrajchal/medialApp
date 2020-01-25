@@ -25,9 +25,9 @@ class PatientController extends Controller
             throw $e;
         }
     }
-    public function getPatient(Patient $patient){
+    public function getPatient($patient){
         try {
-            $patient = $this->patientRepository->getPatient($patient);
+            $patient = $this->patientRepository->getSinglePatient($patient);
             return response()->json([
                 'status' => 1,
                 'data' => $patient

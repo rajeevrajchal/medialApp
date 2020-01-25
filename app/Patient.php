@@ -12,6 +12,10 @@ class Patient extends Model
         'address',
         'gender',
         'tn',
-        'lipid_flag'
+        'lipid_flag',
+        'serology_flag',
+        'urine_falg',
+        'hematology_flag',
+        'biochemistry_flag'
     ];
 }

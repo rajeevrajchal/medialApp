@@ -23,6 +23,9 @@ class CreatePatientsTable extends Migration
             $table->boolean('delete_flag')->default(0);
             $table->boolean('lipid_flag')->default(0);
             $table->boolean('serology_flag')->default(0);
+            $table->boolean('urine_flag')->default(0);
+            $table->boolean('hematology_flag')->default(0);
+            $table->boolean('biochemistry_flag')->default(0);
             $table->boolean('isReport')->default(false);
             $table->timestamps();
         });

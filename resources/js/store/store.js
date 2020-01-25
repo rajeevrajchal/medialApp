@@ -3,15 +3,13 @@ import Vuex from 'Vuex'
 
 Vue.use(Vuex);
 
-import loader from './loader'
-
 export default new Vuex.Store({
-    state:{
+    state: {
         isLoggedIn: !!localStorage.getItem('token'),
         token: localStorage.getItem('token')
     },
-    mutations:{
-        LoginUser(state, data){
+    mutations: {
+        LoginUser(state, data) {
             state.isLoggedIn = true;
             let token = data.access_token;
             state.token = token;
@@ -28,7 +26,4 @@ export default new Vuex.Store({
             state.token = localStorage.getItem('token')
         }
     },
-    module:{
-        loader
-    }
 })
