@@ -110,7 +110,7 @@
                 console.log('i have enter on submit');
                 axios.post('/serology', this.serology)
                     .then(res => {
-
+                        console.log(res.data.data);
                         this.serology = '';
                         this.isActive = false;
                         this.$toasted.success('Test Data Added Successfully', {

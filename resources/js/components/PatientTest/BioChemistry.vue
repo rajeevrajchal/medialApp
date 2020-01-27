@@ -159,7 +159,7 @@
                         });
                         setTimeout(() => {
                             eventBus.$emit('open-refresh-modal');
-                        }, 1500);
+                        }, 1200);
                     }).catch(err => {
                     this.$toasted.show('Error In Storing Test Data ', {
                         icon: 'cross',

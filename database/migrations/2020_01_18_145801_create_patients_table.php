@@ -20,6 +20,7 @@ class CreatePatientsTable extends Migration
             $table->string('address');
             $table->string('gender');
             $table->string('tn');
+            $table->string('contact');
             $table->boolean('delete_flag')->default(0);
             $table->boolean('lipid_flag')->default(0);
             $table->boolean('serology_flag')->default(0);

@@ -31,6 +31,9 @@
                                     Name
                                 </th>
                                 <th>
+                                    Contact
+                                </th>
+                                <th>
                                     Gender
                                 </th>
                                 <th>
@@ -53,6 +56,9 @@
                                         {{p.name}}
                                     </td>
                                     <td>
+                                        {{p.contact}}
+                                    </td>
+                                    <td>
                                         {{p.gender}}
                                     </td>
                                     <td>
@@ -71,7 +77,7 @@
                                         >
                                             Preview
                                         </router-link>
-                                        <i class="material-icons btn btn-danger btn-sm">delete</i>
+                                        <i class="material-icons btn btn-danger btn-sm" @click="onDelete(p.id)">delete</i>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -115,6 +121,7 @@
                 size: 10,
                 search: '',
                 isPagination:false,
+                url:'',
             }
         },
         computed: {
@@ -158,6 +165,21 @@
             prevPage() {
                 this.pageNumber--;
             },
+            onDelete(id){
+                this.url = '/patient' + '/'+ id +'/delete';
+                axios.delete(this.url).then(res => {
+
+                    location.reload();
+                    setTimeout(() => {
+                        this.$toasted.success('Patient Deleted Successfully', {
+                            icon: 'delete',
+                            type: 'success',
+                        });
+                    }, 500);
+                }).catch(err=> {
+                    console.log(err.data)
+                });
+            }
         }
 
     }

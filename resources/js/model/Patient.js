@@ -5,6 +5,7 @@ export default class Patient {
                 age = '',
                 tn='',
                 gender='',
+                contact= '',
                 isReport= false,
                 lipid_flag = false,
                 serology_flag = false,
@@ -18,6 +19,7 @@ export default class Patient {
         this.age = age;
         this.tn = tn;
         this.gender= gender;
+        this.contact = contact;
         this.isReport = isReport;
         this.lipid_flag = lipid_flag;
         this.serology_flag = serology_flag;

@@ -12,38 +12,46 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Name</label>
-                                        <input type="text" v-model="patient.name" class="form-control">
+                                        <input type="text" v-model="patient.name" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="bmd-label-floating">Address</label>
-                                        <input type="text" v-model="patient.address" class="form-control">
+                                        <input type="text" v-model="patient.address" class="form-control" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Age</label>
-                                        <input type="number" v-model="patient.age" class="form-control" min="0">
-                                    </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Age</label>
+                                    <input type="number" v-model="patient.age" class="form-control" min="0" required>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="bmd-label-floating">Sex</label>
-                                        <select class="form-control" v-model="patient.gender">
-                                            <option value="" disabled selected>Choose your option</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Others">Others</option>
-                                        </select>
-                                    </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">Sex</label>
+                                    <select class="form-control" v-model="patient.gender" required>
+                                        <option value="" disabled selected>Choose your option</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Others">Others</option>
+                                    </select>
                                 </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="bmd-label-floating">TicketID</label>
+                                    <input type="text" v-model="patient.tn" class="form-control" disabled>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label class="bmd-label-floating">TicketID</label>
-                                        <input type="text" v-model="patient.tn" class="form-control" disabled>
+                                        <label class="bmd-label-floating">Contact</label>
+                                        <input type="number" v-model="patient.contact" required class="form-control">
                                     </div>
                                 </div>
                             </div>

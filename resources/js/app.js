@@ -4,6 +4,22 @@ import router from './router/index';
 import store from './store/store'
 import axios from 'axios';
 import Toasted from 'vue-toasted';
+import VueHtmlToPaper from 'vue-html-to-paper';
+
+const options = {
+    name: '_blank',
+    specs: [
+        'fullscreen=yes',
+        'titlebar=yes',
+        'scrollbars=yes'
+    ],
+    styles: [
+        'https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css',
+        'https://unpkg.com/kidlat-css/css/kidlat.css'
+    ]
+}
+
+Vue.use(VueHtmlToPaper, options);
 
 axios.defaults.baseURL = `/api`;
 window.axios = axios;

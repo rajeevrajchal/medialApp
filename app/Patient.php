@@ -12,6 +12,7 @@ class Patient extends Model
         'address',
         'gender',
         'tn',
+        'contact',
         'lipid_flag',
         'serology_flag',
         'urine_falg',

@@ -15,11 +15,11 @@ class CreateBiochemistriesTable extends Migration
     {
         Schema::create('biochemistries', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('total_protein');
-            $table->string('albumin');
-            $table->string('sugar_f');
-            $table->string('sugar_pp');
-            $table->string('sugar_r');
+            $table->string('total_protein')->nullable();
+            $table->string('albumin')->nullable();
+            $table->string('sugar_f')->nullable();
+            $table->string('sugar_pp')->nullable();
+            $table->string('sugar_r')->nullable();
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')
                 ->references('id')->on('patients')

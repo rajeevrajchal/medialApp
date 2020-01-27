@@ -18,9 +18,9 @@ class BiochemistyController extends Controller
 
     public function  store(Request $request){
         try{
-           $biochemistry_rft    = new Biochemistry_rft();
-           $biochemistry_lft    =  new Biochemistry_lft();
-           $biochemi       =   new Biochemistry();
+            $biochemistry_rft    = new Biochemistry_rft();
+            $biochemistry_lft    =  new Biochemistry_lft();
+            $biochemi       =   new Biochemistry();
             $patient = Patient::find($request->get(0)['patient_id']);
             $patient->biochemistry_flag = true;
             $patient->isReport = true;

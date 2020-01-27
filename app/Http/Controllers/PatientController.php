@@ -37,6 +37,17 @@ class PatientController extends Controller
         }
     }
 
+    public function getPatientReport($patient){
+        try {
+            $report = $this->patientRepository->generatePatientReport($patient);
+            return response()->json([
+                'status' => 1,
+                'data' => $report
+            ]);
+        } catch (\Exception $e){
+            throw $e;
+        }
+    }
     public function store(Request $request)
     {
         $storePatient = new Patient();

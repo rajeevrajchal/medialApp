@@ -13,7 +13,7 @@
     <title>Sangha Medical</title>
 </head>
 {{--class="dark-edition"--}}
-<body lass="dark-edition" >
+<body >
     <div id="app" >
 
     </div>

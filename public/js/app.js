@@ -11680,7 +11680,7 @@ __webpack_require__.r(__webpack_exports__);
 
         setTimeout(function () {
           eventBus.$emit('open-refresh-modal');
-        }, 1500);
+        }, 1200);
       })["catch"](function (err) {
         _this2.$toasted.show('Error In Storing Test Data ', {
           icon: 'cross',
@@ -12114,6 +12114,7 @@ __webpack_require__.r(__webpack_exports__);
 
       console.log('i have enter on submit');
       axios.post('/serology', this.serology).then(function (res) {
+        console.log(res.data.data);
         _this2.serology = '';
         _this2.isActive = false;
 
@@ -12872,6 +12873,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PatientForm",
@@ -13026,6 +13035,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "patientIndex",
@@ -13035,7 +13050,8 @@ __webpack_require__.r(__webpack_exports__);
       pageNumber: 0,
       size: 10,
       search: '',
-      isPagination: false
+      isPagination: false,
+      url: ''
     };
   },
   computed: {
@@ -13076,6 +13092,22 @@ __webpack_require__.r(__webpack_exports__);
     },
     prevPage: function prevPage() {
       this.pageNumber--;
+    },
+    onDelete: function onDelete(id) {
+      var _this3 = this;
+
+      this.url = '/patient' + '/' + id + '/delete';
+      axios["delete"](this.url).then(function (res) {
+        location.reload();
+        setTimeout(function () {
+          _this3.$toasted.success('Patient Deleted Successfully', {
+            icon: 'delete',
+            type: 'success'
+          });
+        }, 500);
+      })["catch"](function (err) {
+        console.log(err.data);
+      });
     }
   }
 });
@@ -13091,6 +13123,18 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _model_Patient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../model/Patient */ "./resources/js/model/Patient.js");
+/* harmony import */ var _model_BiochemistryLft__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../model/BiochemistryLft */ "./resources/js/model/BiochemistryLft.js");
+/* harmony import */ var _model_BiochemistryRtf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../model/BiochemistryRtf */ "./resources/js/model/BiochemistryRtf.js");
+/* harmony import */ var _model_Biochemistry__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../model/Biochemistry */ "./resources/js/model/Biochemistry.js");
+/* harmony import */ var _model_HematologyDlc__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../model/HematologyDlc */ "./resources/js/model/HematologyDlc.js");
+/* harmony import */ var _model_HematoCbc__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../model/HematoCbc */ "./resources/js/model/HematoCbc.js");
+/* harmony import */ var _model_Hematology__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../model/Hematology */ "./resources/js/model/Hematology.js");
+/* harmony import */ var _model_Lipid__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../model/Lipid */ "./resources/js/model/Lipid.js");
+/* harmony import */ var _model_serology__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../model/serology */ "./resources/js/model/serology.js");
+/* harmony import */ var _model_UrinePhysical__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../model/UrinePhysical */ "./resources/js/model/UrinePhysical.js");
+/* harmony import */ var _model_UrineChemical__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../model/UrineChemical */ "./resources/js/model/UrineChemical.js");
+/* harmony import */ var _model_UrineMicroscopic__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../model/UrineMicroscopic */ "./resources/js/model/UrineMicroscopic.js");
 //
 //
 //
@@ -13102,9 +13146,593 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-var date = Date();
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ViewReport",
+  data: function data() {
+    return {
+      url: "",
+      d: new Date(),
+      output: null,
+      options: {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      },
+      patient: new _model_Patient__WEBPACK_IMPORTED_MODULE_0__["default"](),
+      lipid: new _model_Lipid__WEBPACK_IMPORTED_MODULE_7__["default"](),
+      serology: new _model_serology__WEBPACK_IMPORTED_MODULE_8__["default"](),
+      urinePhysical: new _model_UrinePhysical__WEBPACK_IMPORTED_MODULE_9__["default"](),
+      urineChemical: new _model_UrineChemical__WEBPACK_IMPORTED_MODULE_10__["default"](),
+      urineMircoscopic: new _model_UrineMicroscopic__WEBPACK_IMPORTED_MODULE_11__["default"](),
+      hematologydlc: new _model_HematologyDlc__WEBPACK_IMPORTED_MODULE_4__["default"](),
+      hematologycbc: new _model_HematoCbc__WEBPACK_IMPORTED_MODULE_5__["default"](),
+      hematology: new _model_Hematology__WEBPACK_IMPORTED_MODULE_6__["default"](),
+      biochemistrylft: new _model_BiochemistryLft__WEBPACK_IMPORTED_MODULE_1__["default"](),
+      biochemistryrtf: new _model_BiochemistryRtf__WEBPACK_IMPORTED_MODULE_2__["default"](),
+      biochemistry: new _model_Biochemistry__WEBPACK_IMPORTED_MODULE_3__["default"]()
+    };
+  },
   props: {
     id: {
       required: true,
@@ -13116,15 +13744,30 @@ var date = Date();
     }
   },
   created: function created() {
-    console.log("view createdma aayo ra id:", this.id);
+    var _this = this;
+
+    console.log(this.biochemistryrtf);
+    this.url = 'patient/report' + '/' + this.id;
+    axios.get(this.url).then(function (res) {
+      _this.patient = res.data.data.patient[0];
+      _this.lipid = res.data.data.lipid[0];
+      _this.serology = res.data.data.serology[0];
+      _this.urinePhysical = res.data.data.urine_physical[0];
+      _this.urineMircoscopic = res.data.data.urine_microscopics[0];
+      _this.urineChemical = res.data.data.urine_chemical[0];
+      _this.biochemistry = res.data.data.biochemistry[0];
+      _this.biochemistrylft = res.data.data.biochemistry_lft[0];
+      _this.biochemistryrtf = res.data.data.biochemistry_rft[0];
+      _this.hematology = res.data.data.hematology[0];
+      _this.hematologycbc = res.data.data.hematology_cbc[0];
+      _this.hematologydlc = res.data.data.hematology_dlc[0];
+      console.log('hello', res.data.data.biochemistry[0]);
+    });
   },
   methods: {
-    printReport: function printReport() {
-      var prtHtml = document.getElementById('print').innerHTML;
-      var WinPrint = window.open('width=100%,height=100%');
-      WinPrint.document.write("<!DOCTYPE html>\n                <html>\n                  <head>\n                     <link rel=\"stylesheet\" href=\"https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css\" integrity=\"sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T\" crossorigin=\"anonymous\">\n                  </head>\n                  <body>\n                    ".concat(prtHtml, "\n                  </body>\n                </html>"));
-      WinPrint.focus();
-      WinPrint.print();
+    print: function print() {
+      // Pass the element id here
+      this.$htmlToPaper('printMe');
     }
   }
 });
@@ -13201,6 +13844,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, "\nbutton[data-v-698f574a] {\n    width: 70px;\n    height: 35px;\n    background-color: #eef;\n    margin-left: 2px;\n}\nbutton[data-v-698f574a]:hover {\n    cursor: pointer;\n}\nbutton[data-v-698f574a]:hover:disabled {\n    cursor: not-allowed;\n}\n.custom-pagination[data-v-698f574a] {\n    margin-top: 10px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.ActiveClass[data-v-719e70fc]{\n    font-weight: bold;\n    font-size: 30px;\n    color: red;\n}\n", ""]);
 
 // exports
 
@@ -13756,6 +14418,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./PatientList.vue?vue&type=style&index=0&id=698f574a&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/PatientList.vue?vue&type=style&index=0&id=698f574a&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -14358,6 +15050,29 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (this && this.clearImmediate);
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ "./node_modules/webpack/buildin/global.js")))
+
+/***/ }),
+
+/***/ "./node_modules/vue-html-to-paper/dist/index.js":
+/*!******************************************************!*\
+  !*** ./node_modules/vue-html-to-paper/dist/index.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports=function(e){function t(r){if(n[r])return n[r].exports;var o=n[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,t),o.l=!0,o.exports}var n={};return t.m=e,t.c=n,t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t,n){"use strict";function r(e,t){t.forEach(function(t){var n=e.document.createElement("link");n.setAttribute("rel","stylesheet"),n.setAttribute("type","text/css"),n.setAttribute("href",t),e.document.getElementsByTagName("head")[0].appendChild(n)})}Object.defineProperty(t,"__esModule",{value:!0}),t.default={install:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{};e.mixin({methods:{$htmlToPaper:function(e){var n=arguments.length>1&&void 0!==arguments[1]?arguments[1]:function(){return!0},o=t.name,i=void 0===o?"_blank":o,u=t.specs,l=void 0===u?["fullscreen=yes","titlebar=yes","scrollbars=yes"]:u,c=t.replace,s=void 0===c||c,a=t.styles,d=void 0===a?[]:a;l=l.length?l.join(","):"";var f=document.getElementById(e);if(!f)return void alert("Element to print #"+e+" not found!");var m=window.open("",i,l,s);return m.document.write("\n            <html>\n              <head>\n                <title>"+document.title+"</title>\n              </head>\n              <body>\n                "+f.innerHTML+"\n              </body>\n            </html>\n          "),r(m,d),setTimeout(function(){m.document.close(),m.focus(),m.print(),m.close(),n()},1e3),!0}}})}}}]);
+
+/***/ }),
+
+/***/ "./node_modules/vue-html-to-paper/index.js":
+/*!*************************************************!*\
+  !*** ./node_modules/vue-html-to-paper/index.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! ./dist */ "./node_modules/vue-html-to-paper/dist/index.js");
+
 
 /***/ }),
 
@@ -17686,7 +18401,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", required: "" },
                         domProps: { value: _vm.patient.name },
                         on: {
                           input: function($event) {
@@ -17716,7 +18431,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "text" },
+                        attrs: { type: "text", required: "" },
                         domProps: { value: _vm.patient.address },
                         on: {
                           input: function($event) {
@@ -17752,7 +18467,7 @@ var render = function() {
                           }
                         ],
                         staticClass: "form-control",
-                        attrs: { type: "number", min: "0" },
+                        attrs: { type: "number", min: "0", required: "" },
                         domProps: { value: _vm.patient.age },
                         on: {
                           input: function($event) {
@@ -17784,6 +18499,7 @@ var render = function() {
                             }
                           ],
                           staticClass: "form-control",
+                          attrs: { required: "" },
                           on: {
                             change: function($event) {
                               var $$selectedVal = Array.prototype.filter
@@ -17853,6 +18569,42 @@ var render = function() {
                               return
                             }
                             _vm.$set(_vm.patient, "tn", $event.target.value)
+                          }
+                        }
+                      })
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "row" }, [
+                  _c("div", { staticClass: "col-md-4" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", { staticClass: "bmd-label-floating" }, [
+                        _vm._v("Contact")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.patient.contact,
+                            expression: "patient.contact"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "number", required: "" },
+                        domProps: { value: _vm.patient.contact },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.patient,
+                              "contact",
+                              $event.target.value
+                            )
                           }
                         }
                       })
@@ -18001,6 +18753,14 @@ var render = function() {
                         _c("td", [
                           _vm._v(
                             "\n                                    " +
+                              _vm._s(p.contact) +
+                              "\n                                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            "\n                                    " +
                               _vm._s(p.gender) +
                               "\n                                "
                           )
@@ -18052,7 +18812,12 @@ var render = function() {
                               "i",
                               {
                                 staticClass:
-                                  "material-icons btn btn-danger btn-sm"
+                                  "material-icons btn btn-danger btn-sm",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.onDelete(p.id)
+                                  }
+                                }
                               },
                               [_vm._v("delete")]
                             )
@@ -18148,6 +18913,12 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [
         _vm._v(
+          "\n                                Contact\n                            "
+        )
+      ]),
+      _vm._v(" "),
+      _c("th", [
+        _vm._v(
           "\n                                Gender\n                            "
         )
       ]),
@@ -18193,17 +18964,1225 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "report", attrs: { id: "print" } }, [
-    _c("button", { on: { click: _vm.printReport } }, [
-      _c("i", { staticClass: "fas fa-print logo" }),
+  return _c("div", { staticClass: "main-report" }, [
+    _c("div", { staticClass: "report", attrs: { id: "printMe" } }, [
+      _c("br"),
+      _c("br"),
+      _c("br"),
+      _c("br"),
       _vm._v(" "),
-      _c("span", [_vm._v("Print Report")])
+      _c("div", { staticClass: "container" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("table", [
+                  _c("tr", [
+                    _c("td", [_vm._v("Name:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Age:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.age))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Gender:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.gender))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Address:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.address))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Contact:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.contact))])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("table", [
+                  _c("tr", [
+                    _c("td", [_vm._v("Ticket No:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.patient.tn))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Registered Date:")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(" " + _vm._s(_vm.patient.created_at))])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", [_vm._v("Report Date:")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(
+                        " " +
+                          _vm._s(_vm.d.toLocaleDateString("en-US", _vm.options))
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card" }, [
+          _c("table", { staticClass: "table table-hover", staticStyle: {} }, [
+            _vm._m(2),
+            _vm._v(" "),
+            _vm.patient.lipid_flag
+              ? _c("tbody", [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Total Cholestrol")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.totalcholesterol))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Triglyceride")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.triglyceride))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("HDL-cholesterol")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.hdl))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("LDL-cholesterol")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.ldl))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("VLDL-cholwaterol")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.vldl))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Calcium")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.calcium))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Vitamin D")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.vitaminD))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v("\n                    v\n                    "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Vitamin B12")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.vitaminB12))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Uric Acid")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.lipid.uric))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.patient.serology_flag
+              ? _c("tbody", [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("HIV")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.hiv))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Reactive/N")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("HBSA")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.hbsa))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Reactive/N")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("HCV")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.hcv))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Reactive/N")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("RA factor")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.ra))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Positive/N")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("CRD")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.crd))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("p/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("ASO")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.aso))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("P/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Widal Test")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.widal))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("R/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("VDRL")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.vdrl))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("R/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("TPHA")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.tpha))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("P/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("UPT")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.upt))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("P/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Helicobactor pylori(H.Pylori)")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.hpylori))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("P/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Food for occult Blood(FOB)")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.serology.fob))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("P/N")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("150-250")])
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.patient.urine_flag
+              ? _c("tbody", [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _vm._m(6),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Color")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urinePhysical.color))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Transparancy")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urinePhysical.transparency))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("pH")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineChemical.ph))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Albumin")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineChemical.albumin))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Sugar")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineChemical.sugar))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(8),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Cast")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.cast))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Crystal")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.crystal))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("pus cells")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.puscells))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("squamous epithelial cell")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.sec))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Erthrocytes")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.erythrocytes))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Yeast")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.yeast))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Calcium oxalate")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.calciumxalate))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("Others")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.urineMircoscopic.others))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } })
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.patient.hematology_flag
+              ? _c("tbody", [
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _vm._m(10),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Total Leukocytes Count")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologycbc.totalbc))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _vm._m(11),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Neutrophils")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologydlc.neurophils))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Lymphocytes")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologydlc.lymphocytes))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("monocytes")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologydlc.monocytes))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("eosinophils")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologydlc.eosinophils))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("basophils")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematologydlc.basophis))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Haemoglobin")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematology.haemoglobin))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("plateletes count")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematology.plateles))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Blood grouping")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematology.bloodgroup))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("Malarial parasites(optimal)")
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematology.malarialparasites))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("tr", [
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("HBA1C")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v(_vm._s(_vm.hematology.hba1c))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [_vm._v("/cumm")]),
+                    _vm._v(" "),
+                    _c("td", { attrs: { colspan: "2" } }, [
+                      _vm._v("4000 - 1100")
+                    ])
+                  ])
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("tbody", [
+              _vm._m(12),
+              _vm._v(" "),
+              _vm._m(13),
+              _vm._v(" "),
+              _vm.biochemistryrtf.urea
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Urea")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c(
+                        "span",
+                        {
+                          class: [
+                            1.3 < _vm.biochemistryrtf.urea
+                              ? _vm.ActiveClass
+                              : ""
+                          ]
+                        },
+                        [
+                          _vm._v(
+                            "\n                                " +
+                              _vm._s(_vm.biochemistryrtf.urea) +
+                              "\n                            "
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("m(0.7-1.3),f(0.6-1.1)")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistryrtf.creatinine
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Creatine")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistryrtf.creatinine))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("m(0.7-1.3),f(0.6-1.1)")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistryrtf.sodium
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Sodium")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistryrtf.sodium))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mmol/l")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("135-145")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistryrtf.potassium
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Potassium")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistryrtf.potassium))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mmol/l")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("3.5-5.5")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._m(14),
+              _vm._v(" "),
+              _vm.biochemistrylft.bilirubin_total
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Billrubin (Total)")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.biochemistrylft.bilirubin_total))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("0.2-1.2")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistrylft.bilirubin_direct
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Billrubin (direct)")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.biochemistrylft.bilirubin_direct))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("0.1-0.4")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistrylft.sgpt_alt
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("SGPT (ALT)")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistrylft.sgpt_alt))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("IU/L")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("upto 40")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistrylft.sgpt_ast
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("SGOT (AST)")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistrylft.sgpt_ast))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("IU/L")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("upto 40")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistrylft.alkaline_phosphatase
+                ? _c("tr", [
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("Alkaline phosphatase (Total)")]),
+                    _vm._v(" "),
+                    _c("td", [
+                      _vm._v(_vm._s(_vm.biochemistrylft.alkaline_phosphatase))
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("U/L")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("80=290")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistry.total_protein
+                ? _c("tr", [
+                    _c("td", [_vm._v("Total Protein")]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistry.total_protein))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("g/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("6.0-8.0")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistry.albumin
+                ? _c("tr", [
+                    _c("td", [_vm._v("Albumin")]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistry.albumin))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("g/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("3.5-5.0")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistry.sugar_f
+                ? _c("tr", [
+                    _c("td", [_vm._v("Sugar(F)")]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistry.sugar_f))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("70=140")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistry.sugar_pp
+                ? _c("tr", [
+                    _c("td", [_vm._v("Suagr(PP)")]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistry.sugar_pp))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("70-140")])
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.biochemistry.sugar_f
+                ? _c("tr", [
+                    _c("td", [_vm._v("Sugar(R)")]),
+                    _vm._v(" "),
+                    _c("td"),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(_vm._s(_vm.biochemistry.sugar_r))]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("mg/dl")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v("70-140")])
+                  ])
+                : _vm._e()
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("br"),
+        _c("br"),
+        _vm._v(" "),
+        _vm._m(15)
+      ])
     ]),
     _vm._v(" "),
-    _c("p", [_vm._v("I am report")])
+    _c(
+      "button",
+      { staticClass: "btn btn-sm btn-primary", on: { click: _vm.print } },
+      [
+        _c("i", { staticClass: "material-icons" }, [_vm._v("print")]),
+        _vm._v(" "),
+        _c("span", [_vm._v("Print Report")])
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "card-title", staticStyle: { "text-align": "center" } },
+      [
+        _c("h2", [_vm._v("Sanga Medical Center")]),
+        _vm._v(" "),
+        _c("p", [_vm._v("Sangha, Banepa - 13, Kavre")]),
+        _vm._v(" "),
+        _c("span", [_vm._v("9849174350")])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { attrs: { "aria-label": "breadcrumb" } }, [
+      _c("ol", { staticClass: "breadcrumb" }, [
+        _c(
+          "li",
+          {
+            staticClass: "breadcrumb-item",
+            staticStyle: { "text-align": "center" }
+          },
+          [_vm._v("INVESTIGATION REPORT")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Test")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Result")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Unit")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Bio-Ref.Range")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [_vm._v("Lipid")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [_vm._v("Serology")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "4" } }, [_vm._v("Urine")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "4" } }, [_vm._v("Physical")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "4" } }, [_vm._v("Chemical")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "4" } }, [
+        _vm._v("Microscopic")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [
+        _vm._v("Hematology")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [
+        _vm._v("Complete Blood Count")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [
+        _vm._v("Differential Leukocyte Count")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [
+        _vm._v("BioChemistry")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row", colspan: "2" } }, [
+        _vm._v("Renal Function Test")
+      ]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tr", [
+      _c("th", { attrs: { scope: "row" } }, [_vm._v("Liver Function Test")]),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td"),
+      _vm._v(" "),
+      _c("td")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "signature", staticStyle: { float: "right" } },
+      [
+        _c("span", [_vm._v("______________________")]),
+        _c("br"),
+        _vm._v(" "),
+        _c("span", [_vm._v("       Checked By")])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -33314,12 +35293,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! vue-toasted */ "./node_modules/vue-toasted/dist/vue-toasted.min.js");
 /* harmony import */ var vue_toasted__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(vue_toasted__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var vue_html_to_paper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue-html-to-paper */ "./node_modules/vue-html-to-paper/index.js");
+/* harmony import */ var vue_html_to_paper__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
 
 
 
+
+var options = {
+  name: '_blank',
+  specs: ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
+  styles: ['https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css', 'https://unpkg.com/kidlat-css/css/kidlat.css']
+};
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_html_to_paper__WEBPACK_IMPORTED_MODULE_6___default.a, options);
 axios__WEBPACK_IMPORTED_MODULE_4___default.a.defaults.baseURL = "/api";
 window.axios = axios__WEBPACK_IMPORTED_MODULE_4___default.a;
 window.eventBus = new vue__WEBPACK_IMPORTED_MODULE_0___default.a();
@@ -34326,12 +36314,13 @@ var Patient = function Patient() {
   var age = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '';
   var tn = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '';
   var gender = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
-  var isReport = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : false;
-  var lipid_flag = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
-  var serology_flag = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
-  var urine_flag = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : false;
-  var hematology_flag = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : false;
-  var biochemistry_flag = arguments.length > 10 && arguments[10] !== undefined ? arguments[10] : false;
+  var contact = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : '';
+  var isReport = arguments.length > 6 && arguments[6] !== undefined ? arguments[6] : false;
+  var lipid_flag = arguments.length > 7 && arguments[7] !== undefined ? arguments[7] : false;
+  var serology_flag = arguments.length > 8 && arguments[8] !== undefined ? arguments[8] : false;
+  var urine_flag = arguments.length > 9 && arguments[9] !== undefined ? arguments[9] : false;
+  var hematology_flag = arguments.length > 10 && arguments[10] !== undefined ? arguments[10] : false;
+  var biochemistry_flag = arguments.length > 11 && arguments[11] !== undefined ? arguments[11] : false;
 
   _classCallCheck(this, Patient);
 
@@ -34340,6 +36329,7 @@ var Patient = function Patient() {
   this.age = age;
   this.tn = tn;
   this.gender = gender;
+  this.contact = contact;
   this.isReport = isReport;
   this.lipid_flag = lipid_flag;
   this.serology_flag = serology_flag;
@@ -35011,7 +37001,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ViewReport.vue?vue&type=template&id=719e70fc&scoped=true& */ "./resources/js/views/Patient/ViewReport.vue?vue&type=template&id=719e70fc&scoped=true&");
 /* harmony import */ var _ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ViewReport.vue?vue&type=script&lang=js& */ "./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& */ "./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -35019,7 +37011,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _ViewReport_vue_vue_type_template_id_719e70fc_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -35048,6 +37040,22 @@ component.options.__file = "resources/js/views/Patient/ViewReport.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewReport.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& ***!
+  \************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/views/Patient/ViewReport.vue?vue&type=style&index=0&id=719e70fc&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ViewReport_vue_vue_type_style_index_0_id_719e70fc_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 

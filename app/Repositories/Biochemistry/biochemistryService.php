@@ -14,9 +14,10 @@ class biochemistryService implements biochemistryRepository{
     )
     {
         try {
+
             $data['biochemistry'] = Biochemistry::create($request->get(2));
-            $data['biochemistrylft'] = Biochemistry_lft::create($request->get(1));
-            $data['biochemistryrft'] = Biochemistry_rft::create($request->get(0));
+            $data['biochemistrylft'] = Biochemistry_lft::create($request->get(0));
+            $data['biochemistryrft'] = Biochemistry_rft::create($request->get(1));
             return ['biochemistry' => $data] ;
         }catch (\Exception $e){
 

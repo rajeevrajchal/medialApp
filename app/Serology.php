@@ -10,7 +10,7 @@ class Serology extends Model
         'hiv',
         'hbsa',
         'hcv',
-        'rh',
+        'ra',
         'crd',
         'aso',
         'widal',
